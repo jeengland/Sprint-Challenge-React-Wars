@@ -12,10 +12,17 @@ const CardContainer = () => {
     useEffect(() => {
         axios.get(`https://swapi.co/api/people/?page=${page}`)
             .then(response => setData(response.data.results))
-    },[])
-    if (data.length) {
-        console.log(data[0].name)
-    }
+    },[page])
+    useEffect(() => {
+        if (data.length > 0) {
+            let homes = [];
+            data.map((character) => (
+                axios.get(character.homeworld)
+                    .then(response => setHomeworlds(homeworlds => [...homeworlds, response.data.name]))
+            ))
+        }
+    },[data])
+    console.log(homeworlds);
     return (
         <div>
             Hello World
