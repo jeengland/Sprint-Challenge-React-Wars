@@ -2,6 +2,7 @@ import React, { useEffect } from 'react';
 import styled from '@emotion/styled';
 
 const Card = (props) => {
+    console.log(props);
     return (
         <div>
             <h2>Name</h2>

@@ -36,10 +36,19 @@ const CardContainer = () => {
             }))
         }
     }, [data])
-    console.log(films)
     return (
         <div>
-            Hello World
+            {data.map((data, i) => (
+                <Card name={data.name} 
+                  year={data.birth_year}
+                  gender={data.gender}
+                  height={data.height}
+                  weight={data.mass}
+                  species={species[i]}
+                  homeworld={homeworlds[i]}
+                  films={films[i]}
+                  />
+          ))}
         </div>
     )
 }
