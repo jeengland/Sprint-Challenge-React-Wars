@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import styled from '@emotion/styled';
 import Card from './Card';
+import PageFlip from './PageFlip';
 
 const CardContainerSection = styled.section`
     display: flex;
@@ -16,6 +17,25 @@ const CardContainer = () => {
     const [homeworlds, setHomeworlds] = useState([]);
     const [films, setFilms] = useState([]);
     const [species, setSpecies] = useState([]);
+    const pageUp = () => {
+        if (page < 10) {
+            setPage(page + 1)
+            setHomeworlds([]);
+            setFilms([]);
+            setSpecies([]);
+        } else {
+            console.log('Cannot set page to more than 9!')
+        }
+    }
+    const pageDown = () => {
+        if (page > 0) {
+            setPage(page - 1)
+            setHomeworlds([]);
+            setFilms([]);
+            setSpecies([]);
+            console.log('There are no negative pages!')
+        }
+    }
     // Axios call to get character data
     useEffect(() => {
         axios.get(`https://swapi.co/api/people/?page=${page}`)
@@ -46,6 +66,8 @@ const CardContainer = () => {
     }, [data])
     return (
         <CardContainerSection>
+            <PageFlip text='Last page' function={pageDown} />
+            <PageFlip text='Next page' function={pageUp} />
             {data.map((data, i) => (
                 <Card name={data.name} 
                       key={i}
