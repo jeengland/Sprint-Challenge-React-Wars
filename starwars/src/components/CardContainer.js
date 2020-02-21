@@ -3,6 +3,13 @@ import axios from 'axios';
 import styled from '@emotion/styled';
 import Card from './Card';
 
+const CardContainerSection = styled.section`
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+`
+
 const CardContainer = () => {
     const [data, setData] = useState([])
     const [page, setPage] = useState(1)
@@ -13,6 +20,7 @@ const CardContainer = () => {
     useEffect(() => {
         axios.get(`https://swapi.co/api/people/?page=${page}`)
             .then(response => setData(response.data.results))
+            .catch(console.log('No data returned'))
     },[page])
     // Axios calls to get data stored at inner API locations
     useEffect(() => {
@@ -37,19 +45,20 @@ const CardContainer = () => {
         }
     }, [data])
     return (
-        <div>
+        <CardContainerSection>
             {data.map((data, i) => (
                 <Card name={data.name} 
-                  year={data.birth_year}
-                  gender={data.gender}
-                  height={data.height}
-                  weight={data.mass}
-                  species={species[i]}
-                  homeworld={homeworlds[i]}
-                  films={films[i]}
-                  />
-          ))}
-        </div>
+                      key={i}
+                      year={data.birth_year}
+                      gender={data.gender}
+                      height={data.height}
+                      weight={data.mass}
+                      species={species[i]}
+                      homeworld={homeworlds[i]}
+                      films={films[i]}
+                    />
+            ))}
+        </CardContainerSection>
     )
 }
 
