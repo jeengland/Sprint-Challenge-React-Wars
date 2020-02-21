@@ -3,6 +3,7 @@ import styled from '@emotion/styled';
 
 const TurnerDiv = styled.div`
     width: 50%;
+    margin-top: 1%;
 `
 
 const PageFlip = (props) => {
